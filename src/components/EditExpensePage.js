@@ -1,14 +1,14 @@
 import React from 'react';
 import {connect} from "react-redux";
 import ExpenseForm from "./ExpenseForm";
-import {editExpense, removeExpense} from "../actions/expenses";
+import {startEditExpense, removeExpense} from "../actions/expenses";
 
 const EditExpensePage = (props) => {
     return (
         <div>
             {console.log(props.expense)}
             <ExpenseForm expense={props.expense} onSubmit={(expense)=>{
-                props.dispatch(editExpense(props.expense.id, expense));
+                props.dispatch(startEditExpense(props.expense.id, expense));
                 props.history.push('/');
             }}
             />
