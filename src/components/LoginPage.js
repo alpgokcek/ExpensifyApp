@@ -6,9 +6,14 @@ import {startLogin} from "../actions/auth";
 import {firebase, googleAuthProvider} from "../firebase/firebase";
 
 const LoginPage = ({startLogin}) => (
-    <div>
-
-            <button onClick={startLogin} >Login</button>
+    <div className="box-layout">
+        <div className="box-layout__box">
+            <h1 className="box-layout__title">Expensify App</h1>
+            <p>Expense application with React.</p>
+            <a className="box-layout__links" href="http://github.com/alpgokcek">github.com/alpgokcek</a>
+            <hr/>
+            <button className="button" onClick={startLogin}>Login with Google</button>
+        </div>
     </div>
 );
 

@@ -4,43 +4,57 @@ import {setTextFilter, sortByAmount, sortByDate, setStartDate, setEndDate} from 
 import {DateRangePicker} from 'react-dates'
 
 
-class ExpenseListFilters extends React.Component{
-    state={
-        calendarFocused:null
+class ExpenseListFilters extends React.Component {
+    state = {
+        calendarFocused: null
     };
 
-    onDatesChange = ({startDate, endDate})=>{
+    onDatesChange = ({startDate, endDate}) => {
         this.props.dispatch(setStartDate(startDate));
         this.props.dispatch(setEndDate(endDate));
     };
 
     onFocusChange = (calendarFocused) => {
-        this.setState(()=> ({calendarFocused: calendarFocused}));
+        this.setState(() => ({calendarFocused: calendarFocused}));
     };
 
     render() {
         return (
-            <div>
-                <input value={this.props.filters.text} onChange={(e) => {
-                    this.props.dispatch(setTextFilter(e.target.value))
-                }} type="text"/>
+            <div className="content-container">
+                <div className="input-group">
 
-                <select value={this.props.filters.sortBy} onChange={(e)=>{
-                    if (e.target.value==='date')
-                        this.props.dispatch(sortByDate());
-                    else if (e.target.value==='amount')
-                        this.props.dispatch(sortByAmount());
-                }}>
-                    <option value="date">Date</option>
-                    <option value="amount">Amount</option>
-                </select>
-                <DateRangePicker
-                    startDate={this.props.filters.startDate} endDate={this.props.filters.endDate} regular={true}
-                    startDateId={this.props.filters.startDate ? this.props.filters.startDate.toString(): 'undefined'}
-                    endDateId={this.props.filters.endDate?this.props.filters.endDate.toString(): 'undefined'}
-                    onDatesChange={this.onDatesChange} focusedInput={this.state.calendarFocused}
-                    onFocusChange={this.onFocusChange} numberOfMonths={1} isOutsideRange={()=>false}
-                    showClearDates={true}/>
+                    <div className="input-group__item">
+                        <input placeholder="Search expenses" className="text-input" value={this.props.filters.text} onChange={(e) => {
+                            this.props.dispatch(setTextFilter(e.target.value))
+                        }} type="text"/>
+                    </div>
+
+                    <div className="input-group__item">
+                        <select className="select" value={this.props.filters.sortBy} onChange={(e) => {
+                            if (e.target.value === 'date')
+                                this.props.dispatch(sortByDate());
+                            else if (e.target.value === 'amount')
+                                this.props.dispatch(sortByAmount());
+                        }}>
+                            <option value="date">Date</option>
+                            <option value="amount">Amount</option>
+                        </select>
+                    </div>
+
+                    <div className="input-group__item">
+                        <DateRangePicker
+                            startDate={this.props.filters.startDate} endDate={this.props.filters.endDate} regular={true}
+                            startDateId={this.props.filters.startDate ? this.props.filters.startDate.toString() : 'undefined'}
+                            endDateId={this.props.filters.endDate ? this.props.filters.endDate.toString() : 'undefined'}
+                            onDatesChange={this.onDatesChange} focusedInput={this.state.calendarFocused}
+                            onFocusChange={this.onFocusChange} numberOfMonths={1} isOutsideRange={() => false}
+                            showClearDates={true}/>
+                    </div>
+
+                </div>
+
+
+
             </div>
         );
     }
@@ -48,7 +62,7 @@ class ExpenseListFilters extends React.Component{
 
 
 const mapStateToProps = (state) => {
-    return{
+    return {
         filters: state.filters
     }
 };

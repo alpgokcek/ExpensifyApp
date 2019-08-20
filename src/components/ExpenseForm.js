@@ -49,7 +49,7 @@ export default class ExpenseForm extends React.Component{
     onSubmit = (e) => {
         e.preventDefault();
         if (!this.state.description || !this.state.amount){
-            this.setState(()=> ({error:'Please provide description and amount'}));
+            this.setState(()=> ({error:'Please fill the description and amount fields.'}));
             //alert("Please provide description and amount")
         }
         else {
@@ -65,18 +65,16 @@ export default class ExpenseForm extends React.Component{
 
     render() {
         return (
-            <div>
-                {this.state.error && <p>{this.state.error}</p>}
-                Expense Form
-                <form onSubmit={this.onSubmit}>
-                    <input placeholder="Description" autoFocus={true} type="text" value={this.state.description} onChange={this.onDescriptionChange}/>
-                    <input placeholder="Amount" type="text" value={this.state.amount} onChange={this.onAmountChange} />
+                <form className="form" onSubmit={this.onSubmit}>
+                    {this.state.error && <p className="form__error">{this.state.error}</p>}
+                    <input className="text-input" placeholder="Description" autoFocus={true} type="text" value={this.state.description} onChange={this.onDescriptionChange}/>
+                    <input className="text-input" placeholder="Amount" type="text" value={this.state.amount} onChange={this.onAmountChange} />
                     <SingleDatePicker isOutsideRange={()=> false} numberOfMonths={1} date={this.state.createdAt} onDateChange={this.onDateChange} focused={this.state.calendarFocused} onFocusChange={this.onFocusChange}/>
-                    <textarea value={this.state.note} onChange={this.onNoteChange} placeholder="Add a note for your expense. (Optional)" />
-                    <button>{this.state.description ? 'Edit Expense':'Add Expense'}</button>
+                    <textarea className="text-area" value={this.state.note} onChange={this.onNoteChange} placeholder="Add a note for your expense. (Optional)" />
+                    <div>
+                        <button className="button">{this.props.type ? 'Save Expense' : 'Add Expense' }</button>
+                    </div>
                 </form>
-
-            </div>
         );
     }
 }
